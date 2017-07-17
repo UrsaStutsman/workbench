@@ -52,7 +52,7 @@ export function getVaadin(): VaadinNs {
       return new Configuration({
         basePath: environment.allOfUsApiUrl,
         accessToken: () => signInService.currentAccessToken
-      })
+      });
     }},
     CohortsService
   ],
