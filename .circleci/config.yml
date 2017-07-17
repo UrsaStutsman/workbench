@@ -29,6 +29,9 @@ jobs:
               ./ci/deploy.sh api
             fi
   build_and_test_ui:
+    machine:
+      java:
+        version: openjdk8
     docker:
         - image: circleci/node:latest-browsers
     working_directory: ~/workbench
