@@ -25,9 +25,7 @@ jobs:
       - deploy:
           name: Deploy to gcloud test project
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              ./ci/deploy.sh api
-            fi
+            ./ci/deploy.sh api
   build_and_test_and_deploy_ui:
     docker:
       - image: allofustest/workbench:buildimage-0.0.4
