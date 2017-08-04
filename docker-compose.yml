@@ -1,0 +1,28 @@
+version: '3'
+services:
+  workbench-db:
+    image: "mysql:5.7"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=workbench
+      - MYSQL_USER=liquibase
+      - MYSQL_PASSWORD=liquibasePW
+  workbench-api:
+    build:
+      context: ./api/src/dev/server
+    working_dir: /w
+    volumes:
+      - gradle-cache:/root/.gradle
+      - ./api:/w
+    command: ./gradlew --no-daemon appengineRun
+    environment:
+      - DB_SERVER=workbench-db
+      - DB_CONNECTION_STRING=jdbc:mysql://workbench-db/workbench
+      - DB_LIQUIBASE_USER=liquibase
+      - DB_LIQUIBASE_PASSWORD=liquibasePW
+      - WORKBENCH_DB_USER=root
+      - WORKBENCH_PASSWORD=root
+    ports:
+      - 8081:8081
+volumes:
+  gradle-cache:
