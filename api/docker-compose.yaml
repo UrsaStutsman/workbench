@@ -15,7 +15,7 @@ services:
     volumes:
       - gradle-cache-api:/root/.gradle
       - .:/w:cached
-    command: ./gradlew --no-daemon appengineRun
+    command: ./gradlew --no-daemon --continuous appengineRun
     env_file:
       - db/vars.env
     ports:

@@ -7,6 +7,7 @@
     <env-var name="spring.datasource.driver-class-name" value="${DB_DRIVER}"/>
     <env-var name="spring.datasource.url" value="${DB_CONNECTION_STRING}"/>
     <env-var name="spring.datasource.username" value="${WORKBENCH_DB_USER}"/>
-    <env-var name="spring.datasource.password" value="${WORKBENCH_DB_PASSWORD}"/>
+    <env-var name="spring.datasource.password" value="incorrect-value"/>
+    <env-var name="spring.datasource.continue-on-error" value="true"/>
   </env-variables>
 </appengine-web-app>
