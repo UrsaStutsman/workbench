@@ -1,5 +1,4 @@
-import { Component, OnInit, ComponentFactoryResolver,
-  ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { CriteriaType } from '../model';
 import { SearchService } from '../service';
 import { WizardModalComponent } from '../wizard-modal/wizard-modal.component';
@@ -23,8 +22,7 @@ export class WizardSelectComponent implements OnInit {
   }
 
   openWizard(criteriaType: string) {
-    const wizardModalComponent =
-        this.componentFactoryResolver.resolveComponentFactory(WizardModalComponent);
+    const wizardModalComponent = this.componentFactoryResolver.resolveComponentFactory(WizardModalComponent);
     const wizardModalRef = this.parent.createComponent(wizardModalComponent);
     wizardModalRef.instance.criteriaType = criteriaType;
     wizardModalRef.instance.wizard.open();

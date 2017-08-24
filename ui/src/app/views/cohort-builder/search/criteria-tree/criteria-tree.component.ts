@@ -67,24 +67,12 @@ export class CriteriaTreeComponent implements OnInit, OnDestroy {
     // ];
   }
 
-  // clearFilter(treeModel: TreeModel, filter: any) {
-  //   filter.value = null;
-  //   treeModel.clearFilter();
-  //   treeModel.collapseAll();
-  // }
-  //
-  // filterNodes(treeModel: TreeModel, filterValue: string) {
-  //   if (filterValue.length > 2) {
-  //     treeModel.filterNodes(filterValue);
-  //   }
-  // }
-
-  public selectCriteria(node: any): void {
+  public selectCriteria(node): void {
     node.data.values.push(new SearchParameter(node.data.code, node.data.domainId));
     this.broadcastService.selectCriteria(node.data);
   }
 
-  public event(event: any) {
+  public event(event) {
     if (event.eventName === 'toggleExpanded' && event.isExpanded) {
       if (!event.treeModel.getNodeById(event.node.id).data.children) {
         this.searchService.getChildNodes(event.node.data)
@@ -97,7 +85,7 @@ export class CriteriaTreeComponent implements OnInit, OnDestroy {
     }
   }
 
-  public toggleTree(node: any) {
+  public toggleTree(node) {
     if (node.isCollapsed) {
       node.expand();
     } else if (node.isExpanded) {

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Modifier } from '../model';
 import { SearchService } from '../service';
 import {Wizard} from 'clarity-angular/wizard/wizard';
+import { Criteria } from '../model/criteria';
 
 @Component({
   selector: 'app-wizard-modal',
@@ -22,6 +23,7 @@ export class WizardModalComponent implements OnInit {
   eventDate: Modifier;
   hasOccurrences: Modifier;
   criteriaType: string;
+  nodes: Criteria[] = [];
 
   constructor(private searchService: SearchService) { }
 
