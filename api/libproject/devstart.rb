@@ -3,6 +3,13 @@ require "io/console"
 require "optparse"
 require "tempfile"
 
+def ensure_git_hooks()
+  common = Common.new
+  unless common.capture_stdout(%W{git config --get core.hooksPath}).chomp == "hooks"
+    common.run_inline %W{git config core.hooksPath hooks}
+  end
+end
+
 class ProjectAndAccountOptions
   attr_accessor :project
   attr_accessor :account
@@ -40,14 +47,20 @@ class ProjectAndAccountOptions
   end
 end
 
-
 def dev_up(args)
   common = Common.new
   common.docker.requires_docker
 
+  ensure_git_hooks
+
   at_exit { common.run_inline %W{docker-compose down} }
+  common.status "Starting database..."
   common.run_inline %W{docker-compose up -d db}
+  common.status "Running database migrations..."
   common.run_inline %W{docker-compose run db-migration}
+  common.status "Starting API. This can take a while. Thoughts on reducing development cycle time"
+  common.status "are here:"
+  common.status "  https://github.com/all-of-us/workbench/blob/master/api/doc/2017/dev-cycle.md"
   common.run_inline_swallowing_interrupt %W{docker-compose up api}
 end
 
@@ -158,7 +171,7 @@ def do_run_migrations(project)
   end
   ENV["DB_PORT"] = "3307"
   puts "Upgrading database..."
-  unless system("cd db && ../gradlew --no-daemon --info update && cd ..")
+  unless system("cd db && ../gradlew --info update && cd ..")
     raise("Error upgrading database. Exiting.")
   end
 end
