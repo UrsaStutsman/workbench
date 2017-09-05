@@ -272,6 +272,30 @@ paths:
           required: true
           description: ID of the workspace containing the cohort definition
 
+  # Cohort Builder #######################################################################
+  /api/v1/cohort-builder/criteria/{type}/{parentId}:
+    get:
+      tags:
+        - cohortBuilder
+      description: Returns builder criteria tree with the specified criteria type and parentId
+      operationId: "getCriteriaByTypeAndParentId"
+      parameters:
+              - in: path
+                name: type
+                type: string
+                required: true
+                description: the specific type of criteria to get
+              - in: path
+                name: parentId
+                type: string
+                required: true
+                description: fetch children of parentId
+      responses:
+              "200":
+                description: A collection of criteria
+                schema:
+                  $ref: "#/definitions/CriteriaListResponse"
+
 ##########################################################################################
 ## DEFINITIONS
 ##########################################################################################
@@ -380,3 +404,48 @@ definitions:
       familyName:
         description: the user's family  name (e.g. Jones)
         type: string
+
+  CriteriaListResponse:
+      type: "object"
+      required:
+       - "items"
+      properties:
+        items:
+          type: "array"
+          items:
+             $ref: "#/definitions/Criteria"
+
+  Criteria:
+    type: "object"
+    required:
+          - "id"
+          - "type"
+          - "code"
+          - "name"
+          - "isGroup"
+          - "isSelectable"
+    properties:
+          id:
+            description: id of the criteria
+            type: string
+          type:
+            description: type of criteria
+            type: string
+          code:
+            description: what level of data access the user has
+            type: string
+          name:
+            description: description of criteria
+            type: string
+          count:
+            description: est. count in the cdr
+            type: string
+          isGroup:
+            description: specifies of child or parent
+            type: boolean
+          isSelectable:
+            description: specifies if use can search with
+            type: boolean
+          domainId:
+            description: clue to determine which tables to search
+            type: string
