@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, OnDestroy} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { GoogleChartDirective } from '../google-chart/google-chart.directive';
-import 'rxjs/add/operator/takeWhile';
-import { BroadcastService } from '../service/broadcast.service';
+import { BroadcastService } from '../service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-race-chart',
@@ -12,7 +12,7 @@ export class RaceChartComponent implements OnInit, OnDestroy {
 
   @ViewChild(GoogleChartDirective) raceChartDirective: GoogleChartDirective;
   public type = 'PieChart';
-  private alive = true;
+  private subscription: Subscription;
 
   public data = [
     ['Race', 'Count Per'],
@@ -28,22 +28,18 @@ export class RaceChartComponent implements OnInit, OnDestroy {
   constructor(private broadcastService: BroadcastService) { }
 
   ngOnInit() {
-    this.broadcastService.updatedCharts$
-      .takeWhile(() => this.alive)
+    this.subscription = this.broadcastService.updatedCharts$
       .subscribe(change => {
         this.redraw(change.race);
       });
   }
 
   redraw(data: any) {
-    this.raceChartDirective.drawGraph(this.options,
-        this.type,
-        data,
-        this.raceChartDirective._element);
+    this.raceChartDirective.drawGraph(this.options, this.type, data, this.raceChartDirective._element);
   }
 
   ngOnDestroy() {
-    this.alive = false;
+    this.subscription.unsubscribe();
   }
 
 }

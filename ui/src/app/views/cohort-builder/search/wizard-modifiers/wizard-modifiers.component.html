@@ -1,0 +1,151 @@
+<div class="row row-height">
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+
+    <form>
+      <section class="form-block">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <label for="ageAtEvent" class="font-weight-bold">Age at event:</label>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+            <select id="ageAtEvent" [(ngModel)]="ageAtEvent.operator" (ngModelChange)="onChange($event)" name="ageAtEvent" #operator="ngModel">
+              <option *ngFor="let ageAtEvent of ageAtEventSelectList" [value]="ageAtEvent">{{ageAtEvent}}</option>
+            </select>
+          </div>
+        </div>
+        <span *ngIf="ageAtEvent.operator === 'GTE >=' || ageAtEvent.operator === 'LTE <='; then ageOneInput"></span>
+        <ng-template #ageOneInput>
+          <div class="row pt-1">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              &nbsp;
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+              <input type="text" class="form-control" placeholder="Age" size="10" [(ngModel)]="ageAtEvent.value1" name="age1">
+            </div>
+          </div>
+        </ng-template>
+        <span *ngIf="ageAtEvent.operator === 'Between'; then ageTwoInput"></span>
+        <ng-template #ageTwoInput>
+          <div class="row pt-1">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              &nbsp;
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+              <input type="text" class="form-control" placeholder="Age" size="10" [(ngModel)]="ageAtEvent.value1" name="age1">
+              and
+              <input type="text" class="form-control" placeholder="Age" size="10" [(ngModel)]="ageAtEvent.value2" name="age2">
+            </div>
+          </div>
+        </ng-template>
+        <div class="row pt-1">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <label for="eventDate" class="font-weight-bold">Event date:</label>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+            <select id="eventDate" [(ngModel)]="eventDate.operator" (ngModelChange)="onChange($event)" name="eventDate" #operator="ngModel">
+              <option *ngFor="let eventDate of eventDateSelectList" value="{{eventDate}}">{{eventDate}}</option>
+            </select>
+          </div>
+        </div>
+        <span *ngIf="eventDate.operator === 'Within x year(s)'; then eventDateInput"></span>
+        <ng-template #eventDateInput>
+          <div class="row pt-1">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              &nbsp;
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+              <input type="text" class="form-control" placeholder="x Years" size="10">
+            </div>
+          </div>
+        </ng-template>
+        <span *ngIf="eventDate.operator === 'GTE >=' || eventDate.operator === 'LTE <='; then eventDateOnePicker"></span>
+        <ng-template #eventDateOnePicker>
+          <div class="row pt-1">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              &nbsp;
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+              date picker here
+            </div>
+          </div>
+        </ng-template>
+        <span *ngIf="eventDate.operator === 'Between'; then eventDateTwoPicker"></span>
+        <ng-template #eventDateTwoPicker>
+          <div class="row pt-1">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              &nbsp;
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+              date picker here and here
+            </div>
+          </div>
+        </ng-template>
+
+        <div class="row pt-1">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <label for="hasOccurrences" class="font-weight-bold">Has Occurrences:</label>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+            <select id="hasOccurrences"[(ngModel)]="hasOccurrences.operator" (ngModelChange)="onChange($event)" name="hasOccurrences" #operator="ngModel">
+              <option *ngFor="let hasOccurrences of hasOccurrencesSelectList" value="{{hasOccurrences}}">{{hasOccurrences}}</option>
+            </select>
+          </div>
+        </div>
+        <span *ngIf="hasOccurrences.operator === '1 or more'; then occurrencesInput"></span>
+        <ng-template #occurrencesInput>
+          <div class="row pt-1">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              &nbsp;
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+              <input type="text" class="form-control" placeholder="Occurrences" size="10">
+            </div>
+          </div>
+        </ng-template>
+        <span *ngIf="hasOccurrences.operator === 'within x days/years'; then occurrencesWithin"></span>
+        <ng-template #occurrencesWithin>
+          <div class="row pt-1">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              &nbsp;
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+              <input type="text" class="form-control" placeholder="Occurrences" size="10">&nbsp;within&nbsp;<input type="text" class="form-control" placeholder="x" size="5">
+              <select [(ngModel)]="hasOccurrences.value3" name="hasOccurrences1" #value3="ngModel">
+                <option *ngFor="let daysOrYears of daysOrYearsSelectList" value="{{daysOrYears}}">{{daysOrYears}}</option>
+              </select>
+            </div>
+          </div>
+        </ng-template>
+        <span *ngIf="hasOccurrences.operator === 'x days/years apart'; then occurrencesApart"></span>
+        <ng-template #occurrencesApart>
+          <div class="row pt-1">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              &nbsp;
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+              <input type="text" class="form-control" placeholder="Occurrences" size="10">&nbsp;<input type="text" class="form-control" placeholder="x" size="5">
+              <select [(ngModel)]="hasOccurrences.value3" name="hasOccurrences2" #value3="ngModel">
+                <option *ngFor="let daysOrYears of daysOrYearsSelectList" value="{{daysOrYears}}">{{daysOrYears}}</option>
+              </select>
+              apart
+            </div>
+          </div>
+        </ng-template>
+        <div class="row pt-1">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+            <label for="visitType" class="font-weight-bold">Visit type:</label>
+          </div>
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+            <select id="visitType" [(ngModel)]="visitType.value1" name="visitType" #value1="ngModel" (ngModelChange)="onChange($event)">
+              <option *ngFor="let visitType of visitTypeSelectList" value="{{visitType}}">{{visitType}}</option>
+            </select>
+          </div>
+        </div>
+
+      </section>
+    </form>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <app-wizard-criteria-group></app-wizard-criteria-group>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="row bg-column-header">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 font-weight-bold">
+    Selected {{getTypeDescription()}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div *ngFor="let criteria of criteriaList; let i = index">
+      <div class="row">
+        <span *ngIf="criteria.group; then group else notGroup"></span>
+        <ng-template #group>
+          <div class="col-xs-11 text-truncate">
+            <!--<button type="button" class="btn btn-link btn-sm text-danger mr-0" (click)="removeCriteria(criteria)"><clr-icon shape="close" size="14"></clr-icon></button>-->
+            <span *ngIf="i > 0" class="font-weight-bold">OR</span>
+            <span class="text-muted">Group</span>
+            <span class="font-weight-bold">{{criteria.code}}-{{criteria.name}}</span>
+          </div>
+        </ng-template>
+        <ng-template #notGroup>
+          <div class="col-xs-11 text-truncate">
+            <!--<button type="button" class="btn btn-link btn-sm text-danger mr-0" (click)="removeCriteria(criteria)"><clr-icon shape="close" size="14"></clr-icon></button>-->
+            <span *ngIf="i > 0" class="font-weight-bold">OR</span>
+            <span *ngIf="criteria.type === 'DEMO_GEN'" class="font-weight-bold">Gender-{{criteria.name}}</span>
+            <span *ngIf="criteria.type === 'DEMO_RACE'" class="font-weight-bold">Race/Ethnicity-{{criteria.name}}</span>
+            <span *ngIf="criteria.type === 'DEMO_AGE' || criteria.type === 'DEMO_DEC'" class="font-weight-bold">{{criteria.name}}</span>
+            <span *ngIf="criteria.type !== 'DEMO_GEN' && criteria.type !== 'DEMO_RACE' && criteria.type !== 'DEMO_AGE' && criteria.type !== 'DEMO_DEC'" class="font-weight-bold">{{criteria.code}}-{{criteria.name}}</span>
+          </div>
+        </ng-template>
+        <div class="col-xs-1 text-right"><small class="font-weight-bold">{{criteria.count}}</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="row bg-column-header">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 font-weight-bold">
+    Modifiers
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <span class="font-weight-bold">Age at event:</span>
+        <span>{{ageAtEvent.operator}}</span>
+        <span *ngIf="ageAtEvent.operator === 'GTE >=' || ageAtEvent.operator === 'LTE <='">{{ageAtEvent.value1}}</span>
+        <span *ngIf="ageAtEvent.operator === 'Between'">{{ageAtEvent.value1}} and {{ageAtEvent.value2}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <span class="font-weight-bold">Event date:</span>
+        <span>{{eventDate.operator}}</span>
+        <span *ngIf="eventDate.operator === 'Within x year(s)'">{{eventDate.value1}}</span>
+        <span *ngIf="eventDate.operator === 'GTE >=' || eventDate.operator === 'LTE <='">{{eventDate.value1}} and {{eventDate.value2}}</span>
+        <span *ngIf="eventDate.operator === 'Between'">{{eventDate.value1}} and {{eventDate.value2}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <span class="font-weight-bold">Has Occurrences:</span>
+        <span>{{hasOccurrences.operator}}</span>
+        <span *ngIf="hasOccurrences.operator === '1 or more'">{{hasOccurrences.value1}}</span>
+        <span *ngIf="hasOccurrences.operator === 'within x days/years'">within {{hasOccurrences.value1}} {{hasOccurrences.value3}}</span>
+        <span *ngIf="hasOccurrences.operator === 'x days/years apart'">{{hasOccurrences.value1}} and {{hasOccurrences.value3}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <span class="font-weight-bold">Visit type:</span>
+        <span>{{visitType.value1}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+    <h3 class="mt-0 ">Total: {{getTotal()}}</h3>
+  </div>
+</div>
+

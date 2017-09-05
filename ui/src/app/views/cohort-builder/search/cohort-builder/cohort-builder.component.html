@@ -1,12 +1,14 @@
 <div class="main-container">
+
   <div class="alert alert-app-level"></div>
+
   <clr-header class="header-6">
     <div class="branding">
       <span class="title">AoU Discover</span>
     </div>
     <div class="header-nav">
-      <a routerLink="../../cohorts/build" class="active nav-link nav-text">Search</a>
-      <a routerLink="../../cohorts/1/build" class="nav-link nav-text">Review</a>
+      <a [routerLink]="['/search']" class="active nav-link nav-text">Search</a>
+      <a [routerLink]="['/review']" class="nav-link nav-text">Review</a>
     </div>
     <div class="header-actions">
       <clr-dropdown>
@@ -22,22 +24,28 @@
       </clr-dropdown>
     </div>
   </clr-header>
+
   <div class="content-container">
     <div class="content-area">
 
-      <div class="row">
+      <div class="row height-100">
+
         <div class="col-xs-4">
           <div class="row">
             <div class="col-xs-8"><h3 class="mt-1">Include Participants</h3></div>
-            <div class="col-xs-4 text-right"><button type="button" class="btn btn-outline" (click)="addSearchGroup()"><clr-icon shape="plus"></clr-icon> Add Group</button></div>
+            <div class="col-xs-4 text-right">
+              <button type="button" class="btn btn-outline" (click)="addSearchGroup()">
+                <clr-icon shape="plus"></clr-icon> Add Group
+              </button>
+            </div>
           </div>
-          <div id="scrollable-groups" class="scrolling-groups">
+          <div #includeDiv class="scrolling-groups">
             <div  class="my-border">
-              <div *ngFor="let searchGroup of searchGroups; let i = index">
-            <span *ngIf="i > 0">
-              <div class="text-center font-weight-bold">AND</div>
-            </span>
-                <app-search-group [searchGroup]="searchGroup" [index]="index" (onRemove)="removeSearchGroup($event)"></app-search-group>
+              <div *ngFor="let includeGroup of includeGroups; let i = index">
+                <span *ngIf="i > 0">
+                  <div class="text-center font-weight-bold">AND</div>
+                </span>
+                <app-search-group [searchGroup]="includeGroup" (onRemove)="removeSearchGroup($event)"></app-search-group>
               </div>
             </div>
           </div>
@@ -46,15 +54,19 @@
         <div class="col-xs-4">
           <div class="row">
             <div class="col-xs-8"><h3 class="mt-1">Exclude Participants</h3></div>
-            <div class="col-xs-4 text-right"><button type="button" class="btn btn-outline" (click)="addExclusionGroup()"><clr-icon shape="plus"></clr-icon> Add Group</button></div>
+            <div class="col-xs-4 text-right">
+              <button type="button" class="btn btn-outline" (click)="addExclusionGroup()">
+                <clr-icon shape="plus"></clr-icon> Add Group
+              </button>
+            </div>
           </div>
-          <div id="scrollable-groups1" class="scrolling-groups">
+          <div #excludeDiv class="scrolling-groups">
             <div  class="my-border">
-              <div *ngFor="let exclusionGroup of exclusionGroups; let i = index">
-          <span *ngIf="i > 0">
-            <div class="text-center font-weight-bold">AND</div>
-          </span>
-                <app-search-group [searchGroup]="exclusionGroup" (onRemove)="removeExclusionGroup($event)"></app-search-group>
+              <div *ngFor="let excludeGroup of excludeGroups; let i = index">
+                <span *ngIf="i > 0">
+                  <div class="text-center font-weight-bold">AND</div>
+                </span>
+                <app-search-group [searchGroup]="excludeGroup" (onRemove)="removeExclusionGroup($event)"></app-search-group>
               </div>
             </div>
           </div>
@@ -62,8 +74,14 @@
 
         <div class="col-xs-4">
           <div class="row">
-            <div class="col-xs-4 text-left"><button type="button" class="btn btn-outline" (click)="save()"><clr-icon shape="floppy"></clr-icon> Save Set</button></div>
-            <div class="col-xs-8 text-right"><h3 class="mt-1">Set Total: {{totalSet.length}}</h3></div>
+            <div class="col-xs-4 text-left">
+              <button type="button" class="btn btn-outline"(click)="save()">
+                <clr-icon shape="floppy"></clr-icon> Save Set
+              </button>
+            </div>
+            <div class="col-xs-8 text-right">
+              <h3 class="mt-1">Set Total: {{totalSet.length}}</h3>
+            </div>
           </div>
           <div class="box">
             <app-gender-chart></app-gender-chart>
@@ -73,8 +91,10 @@
             <app-race-chart></app-race-chart>
           </div>
         </div>
+
       </div>
 
     </div>
   </div>
+
 </div>

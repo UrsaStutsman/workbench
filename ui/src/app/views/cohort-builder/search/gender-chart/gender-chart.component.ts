@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, Input, OnDestroy} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { GoogleChartDirective } from '../google-chart/google-chart.directive';
-import 'rxjs/add/operator/takeWhile';
 import { BroadcastService } from '../service/broadcast.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-gender-chart',
@@ -12,7 +12,7 @@ export class GenderChartComponent implements OnInit, OnDestroy {
 
   @ViewChild(GoogleChartDirective) genderChartDirective: GoogleChartDirective;
   public type = 'BarChart';
-  private alive = true;
+  private subscription: Subscription;
 
   public data = [
     ['Gender', 'Count', { role: 'style' }],
@@ -35,22 +35,18 @@ export class GenderChartComponent implements OnInit, OnDestroy {
   constructor(private broadcastService: BroadcastService) {}
 
   ngOnInit() {
-    this.broadcastService.updatedCharts$
-      .takeWhile(() => this.alive)
+    this.subscription = this.broadcastService.updatedCharts$
       .subscribe(change => {
         this.redraw(change.gender);
       });
   }
 
   redraw(data: any) {
-    this.genderChartDirective.drawGraph(this.options,
-        this.type,
-        data,
-        this.genderChartDirective._element);
+    this.genderChartDirective.drawGraph(this.options, this.type, data, this.genderChartDirective._element);
   }
 
   ngOnDestroy() {
-    this.alive = false;
+    this.subscription.unsubscribe();
   }
 
 }

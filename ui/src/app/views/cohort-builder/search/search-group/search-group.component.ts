@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
-import { BroadcastService, SearchService } from '../service';
-import { SearchResult, SearchGroup, Subject, CriteriaType } from '../model';
+import { BroadcastService } from '../service';
+import { SearchResult, SearchGroup, Subject } from '../model';
 
 @Component({
   selector: 'app-search-group',
@@ -11,26 +11,17 @@ export class SearchGroupComponent {
 
   /**
    * The search group for this component.
-   *
-   * @type {SearchGroup}
-   * @memberof SearchGroupComponent
    */
   @Input()
   public searchGroup: SearchGroup;
 
   /**
    * The group set for this component.
-   *
-   * @type {Subject[]}
-   * @memberof SearchGroupComponent
    */
   public groupSet: Subject[] = [];
 
   /**
    * Event emitter when the delete search group button is pushed.
-   *
-   * @type {EventEmitter<SearchGroup>}
-   * @memberof SearchGroupComponent
    */
   @Output()
   public onRemove = new EventEmitter<SearchGroup>();
@@ -79,7 +70,7 @@ export class SearchGroupComponent {
     this.broadcastService.removeSearchResult(this.searchGroup);
   }
 
-  selectSearchGroup() {
+  public selectSearchGroup(): void {
     this.broadcastService.selectSearchGroup(this.searchGroup);
   }
 

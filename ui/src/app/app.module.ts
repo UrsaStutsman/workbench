@@ -9,7 +9,6 @@ import {ClarityModule} from 'clarity-angular';
 
 import {AppRoutingModule} from 'app/app-routing.module';
 import {AppComponent} from 'app/views/app/component';
-import {CohortBuilderComponent} from 'app/views/cohort-builder/search/cohort-builder/cohort-builder.component';
 import {CohortEditComponent} from 'app/views/cohort-edit/component';
 import {HomePageComponent} from 'app/views/home-page/component';
 import {SignInService} from 'app/services/sign-in.service';
@@ -18,20 +17,24 @@ import {WorkspaceComponent} from 'app/views/workspace/component';
 import {WorkspaceEditComponent} from 'app/views/workspace-edit/component';
 import {CohortsService, WorkspacesService, Configuration, ConfigurationParameters} from 'generated';
 import {environment} from 'environments/environment';
-import { SearchGroupComponent } from 'app/views/cohort-builder/search/search-group/search-group.component';
-import { CriteriaTreeComponent } from 'app/views/cohort-builder/search/criteria-tree/criteria-tree.component';
-import { CriteriaGroupComponent } from 'app/views/cohort-builder/search/criteria-group/criteria-group.component';
-import { SearchResultComponent } from 'app/views/cohort-builder/search/search-result/search-result.component';
-import { GoogleChartDirective } from 'app/views/cohort-builder/search/google-chart/google-chart.directive';
+import { CohortBuilderComponent } from 'app/views/cohort-builder/search/cohort-builder/cohort-builder.component';
 import { GenderChartComponent } from 'app/views/cohort-builder/search/gender-chart/gender-chart.component';
+import { GoogleChartDirective } from 'app/views/cohort-builder/search/google-chart/google-chart.directive';
 import { RaceChartComponent } from 'app/views/cohort-builder/search/race-chart/race-chart.component';
-import { CohortReviewComponent } from 'app/views/cohort-builder/review/cohort-review/cohort-review.component';
+import { SearchGroupComponent } from 'app/views/cohort-builder/search/search-group/search-group.component';
+import { SearchResultComponent } from 'app/views/cohort-builder/search/search-result/search-result.component';
+import { WizardCriteriaGroupComponent } from './views/cohort-builder/search/wizard-criteria-group/wizard-criteria-group.component';
+import { WizardModalComponent } from 'app/views/cohort-builder/search/wizard-modal/wizard-modal.component';
+import { WizardModifiersComponent } from './views/cohort-builder/search/wizard-modifiers/wizard-modifiers.component';
+import { WizardSelectComponent } from 'app/views/cohort-builder/search/wizard-select/wizard-select.component';
+import { WizardTotalComponent } from './views/cohort-builder/search/wizard-total/wizard-total.component';
+import { WizardTreeChildrenComponent } from './views/cohort-builder/search/wizard-tree-children/wizard-tree-children.component';
+import { WizardTreeParentComponent } from './views/cohort-builder/search/wizard-tree-parent/wizard-tree-parent.component';
 import { SubjectListComponent } from 'app/views/cohort-builder/review/subject-list/subject-list.component';
 import { SubjectDetailComponent } from 'app/views/cohort-builder/review/subject-detail/subject-detail.component';
 import { AnnotationsComponent } from 'app/views/cohort-builder/review/annotations/annotations.component';
 import { MedicationsComponent } from 'app/views/cohort-builder/review/medications/medications.component';
-import { WizardSelectComponent } from 'app/views/cohort-builder/search/wizard-select/wizard-select.component';
-import { WizardModalComponent } from 'app/views/cohort-builder/search/wizard-modal/wizard-modal.component';
+import { CohortReviewComponent } from 'app/views/cohort-builder/review/cohort-review/cohort-review.component';
 import { BroadcastService, SearchService } from './views/cohort-builder/search/service';
 
 export function getVaadin(): VaadinNs {
@@ -65,8 +68,6 @@ export function getConfiguration(signInService: SignInService): Configuration {
     AppComponent,
     CohortBuilderComponent,
     SearchGroupComponent,
-    CriteriaTreeComponent,
-    CriteriaGroupComponent,
     SearchResultComponent,
     GoogleChartDirective,
     GenderChartComponent,
@@ -76,8 +77,13 @@ export function getConfiguration(signInService: SignInService): Configuration {
     SubjectDetailComponent,
     AnnotationsComponent,
     MedicationsComponent,
-    WizardSelectComponent,
+    WizardCriteriaGroupComponent,
     WizardModalComponent,
+    WizardModifiersComponent,
+    WizardSelectComponent,
+    WizardTotalComponent,
+    WizardTreeChildrenComponent,
+    WizardTreeParentComponent,
     CohortEditComponent,
     HomePageComponent,
     WorkspaceComponent,
